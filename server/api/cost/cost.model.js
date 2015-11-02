@@ -4,10 +4,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     User = require('../user/user.model');
 
-var validateAmmountProperty = function (ammount) {
-    return ammount > 0;
-};
-
 /**
  * Cost Schema
  */
@@ -19,7 +15,6 @@ var CostSchema = new Schema({
     },
     ammount: {
         type: Number,
-        validate: [validateAmmountProperty, 'Please fill in the ammount']
     },
     description: {
         type: String,
@@ -31,6 +26,17 @@ var CostSchema = new Schema({
         ref: 'User'
     }
 });
+
+/**
+ * Validations
+ */
+
+// Validate empty ammount
+CostSchema
+  .path('ammount')
+  .validate(function(ammount) {
+    return ammount > 0;
+  }, 'Please fill in the ammount');
 
 
 module.exports = mongoose.model('Cost', CostSchema);

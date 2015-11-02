@@ -1,7 +1,6 @@
 'use strict';
 
 var should = require('should');
-var assert = require('chai').assert;
 var app = require('../../app');
 var request = require('supertest');
 var User = require('../user/user.model');
@@ -63,8 +62,6 @@ describe('Cost CRUD tests - /api/costs', function() {
     .expect(200)
     .end(function(signinErr, signinRes) {
       if (signinErr) return done(signinErr);
-      
-      var userId = user._id;
 
       request(app)
       .post('/api/costs')
@@ -80,9 +77,12 @@ describe('Cost CRUD tests - /api/costs', function() {
           if (costsgetErr) return done(costsgetErr);
 
           var costs = costsgetRes.body;
-
+          
+          costs.should.have.length(1);
           (costs[0].ammount).should.equal(400);
-          (costs[0].user._id).should.equal(userId);          
+          (costs[0].user.name).should.equal(user.name);
+
+          done();
         })
       });
     })
