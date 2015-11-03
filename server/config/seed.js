@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Cost = require('../api/cost/cost.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -46,4 +47,33 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
+});
+
+
+Cost.find({}).remove(function() {
+
+  var user = new User({
+      provider: 'local',
+      name: 'Fake User',
+      email: 'test@test.com',
+      password: 'password'
+    });
+
+  user.save();
+
+  Cost.create({
+    ammount: 570,
+    description: 'Appartment rent.',
+    user: user
+  }, {
+    ammount: 400,
+    description: 'Food.',
+    user: user
+  }, {
+    ammount: 30,
+    description: 'Electricity.',
+    user: user
+  }, function() {
+    console.log('finished populating costs')
+  });
 });

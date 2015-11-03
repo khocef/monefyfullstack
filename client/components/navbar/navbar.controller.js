@@ -5,6 +5,9 @@ angular.module('monefyApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+      'title': 'Costs',
+      'link': '/cost'
     }];
 
     $scope.isCollapsed = true;
