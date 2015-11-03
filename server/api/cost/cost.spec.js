@@ -1,7 +1,6 @@
 'use strict';
 
 var should = require('should');
-var assert = require('chai').assert;
 var app = require('../../app');
 var request = require('supertest');
 var User = require('../user/user.model');
