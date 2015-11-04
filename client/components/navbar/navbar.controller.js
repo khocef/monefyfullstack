@@ -7,7 +7,7 @@ angular.module('monefyApp')
       'link': '/'
     }, {
       'title': 'Costs',
-      'link': '/cost'
+      'link': '/costs'
     }];
 
     $scope.isCollapsed = true;

@@ -6,7 +6,6 @@ angular.module('monefyApp')
 
     $scope.loadAllCost = function() {
         costService.loadAllCosts().then(function (args) {
-        	console.log(args);
         	$scope.costs = args.data;
         }, function() {
             
