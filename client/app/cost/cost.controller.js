@@ -5,12 +5,16 @@ angular.module('monefyApp')
     $scope.costs = [];
 
     $scope.loadAllCost = function() {
-        costService.getCosts().then(function (args) {
+        costService.loadAllCosts().then(function (args) {
         	console.log(args);
         	$scope.costs = args.data;
         }, function() {
-
+            
         });
+    };
+
+    $scope.create = function() {
+
     };
 
     $scope.delete = Modal.confirm.delete(function(cost) {
