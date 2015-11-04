@@ -26,7 +26,7 @@ angular.module('monefyApp')
           // brodcast event
           $rootScope.$broadcast('HTTP_RESPONSE_ERROR');
         }
-        return $q.reject(response);
+        return $q.reject(rejection);
       }
     };
   }).config(['$httpProvider', function ($httpProvider) {

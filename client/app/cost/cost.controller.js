@@ -13,7 +13,7 @@ angular.module('monefyApp')
     };
 
     $scope.create = function() {
-
+        
     };
 
     $scope.delete = Modal.confirm.delete(function(cost) {

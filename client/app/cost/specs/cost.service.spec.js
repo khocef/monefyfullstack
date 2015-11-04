@@ -1,17 +1,18 @@
 'use strict';
 
-describe('Service: cost', function () {
+describe('Service: costService', function () {
 
   // load the service's module
   beforeEach(module('monefyApp'));
 
   // instantiate service
-  var cost;
-  beforeEach(inject(function (_cost_) {
-    cost = _cost_;
+  var cost, httpBackend;
+  beforeEach(inject(function (_costService_, $httpBackend) {
+    cost = _costService_;
+    httpBackend = $httpBackend;
   }));
 
-  it('should do something', function () {
+  it('expect costService should to be truthy', function () {
     expect(!!cost).toBe(true);
   });
 
