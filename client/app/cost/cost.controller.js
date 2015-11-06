@@ -3,6 +3,12 @@
 angular.module('monefyApp')
   .controller('CostCtrl', ['$scope', '$log', '$http', 'costService', 'Modal', function ($scope, $log, $http, costService, Modal) {
     $scope.costs = [];
+    $scope.cost = {
+        'ammount': '',
+        'description': ''
+    };
+
+
 
     $scope.loadAllCost = function() {
         costService.loadAllCosts().then(function (args) {

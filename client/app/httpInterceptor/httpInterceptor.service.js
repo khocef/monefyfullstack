@@ -6,10 +6,11 @@ angular.module('monefyApp')
     return {
       request: function(config) {
         if(config.url.indexOf('api') !== -1) {
-          $log.info('httpInterceptor send request to ' + config.url);
+          $log.info('httpInterceptor send ' + config.method + ' request to ' + config.url);
           // brodcast event
           $rootScope.$broadcast('HTTP_CALL_STARTED');
         }
+        //console.log(config);
         return config;
       },
       response: function(response) {
