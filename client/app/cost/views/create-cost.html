@@ -1,22 +1,46 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-	<div class="row">
-
-		<div class="col-sm-6">
-		      <form class="form" name="form" ng-submit="save(form)" novalidate>
-		        <div class="form-group input-group-lg">
-		          <input type="text" name="ammount" class="form-control" ng-model="cost.ammount" required>
-		        </div>
-	        </form>
-	    </div>
-    </div>
-
-    <div class="row">
-	    <div class="col-sm-6">
-			<numpad text="cost.ammount" max-length="5"></numpad>
+<div class="container" data-ng-controller="CostCtrl">
+	<form class="form" name="form" ng-submit="save(form)" novalidate>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<time class="time"></time>
+			</div>
 		</div>
-	</div>
-</div>
 
-<div class="loader" loader=""></div>
+		<div class="row">
+			<div class="col-sm-6">  
+		        <div class="form-group input-group-lg">
+		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" required />
+		        </div>
+		    </div>
+	    </div>
+
+	    <div class="row">
+	    	<div class="col-sm-6">
+	    		<div class="form-group input-group-lg">
+		          	<input type="text" name="description" class="form-control" ng-model="cost.decription" placeholder="Add note" />
+		        </div>
+	    	</div>
+	    </div>
+
+	    <div class="row">
+		    <div class="col-sm-6">
+				<numpad class="numpad" text="cost.ammount" max-length="ammountMaxLength"></numpad>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-default btn-lg btn-block">Save</button>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-default btn-lg btn-block">Choose category</button>
+			</div>
+		</div>
+	</form>
+</div>

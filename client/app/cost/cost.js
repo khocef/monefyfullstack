@@ -6,8 +6,7 @@ angular.module('monefyApp')
       .state('costs', {
       	abstract: true,
         url: '/costs',
-        template: '<ui-view/>',
-        controller: 'CostCtrl'
+        template: '<ui-view/>'
       })
       .state('costs.list', {
       	url: '',
