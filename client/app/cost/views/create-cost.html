@@ -1,26 +1,34 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container" data-ng-controller="CostCtrl">
-	<form class="form" name="form" ng-submit="save(form)" novalidate>
+	<form class="form" name="form" ng-submit="create(form)" novalidate>
 		
 		<div class="row">
 			<div class="col-sm-6">
-				<time class="time"></time>
+				<time class="time" format="EEEE, dd MMMM"></time>
 			</div>
 		</div>
-
+		<br/>
 		<div class="row">
 			<div class="col-sm-6">  
-		        <div class="form-group input-group-lg">
-		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" required />
+		        <div class="form-group input-group-lg" ng-class="{ 'has-success': form.ammount.$valid && form.$submitted,
+                                            						'has-error': form.ammount.$invalid && form.$submitted }">
+		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" disabled required="" />
+		          	<p class="help-block" ng-show="form.ammount.$error.required && form.$submitted">
+			            An ammount is required
+			        </p>
 		        </div>
 		    </div>
 	    </div>
 
 	    <div class="row">
 	    	<div class="col-sm-6">
-	    		<div class="form-group input-group-lg">
-		          	<input type="text" name="description" class="form-control" ng-model="cost.decription" placeholder="Add note" />
+	    		<div class="form-group input-group-lg" ng-class="{ 'has-success': form.description.$valid && form.$submitted,
+                                            						'has-error': form.description.$invalid && form.$submitted }">
+		          	<input type="text" name="description" class="form-control" ng-model="cost.description" placeholder="Add note" required=""/>
+		        	<p class="help-block" ng-show="form.description.$error.required && form.$submitted">
+			            A note is required
+			        </p>
 		        </div>
 	    	</div>
 	    </div>
@@ -33,7 +41,7 @@
 		<br/>
 		<div class="row">
 			<div class="col-sm-6">
-				<button type="button" class="btn btn-default btn-lg btn-block">Save</button>
+				<button class="btn btn-default btn-lg btn-block" type="submit">Save</button>
 			</div>
 		</div>
 		<br/>

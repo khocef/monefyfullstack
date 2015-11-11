@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('monefyApp')
-  .directive('time', function () {
+  .directive('time', function ($filter) {
     return {
       templateUrl: 'app/time/time.html',
       restrict: 'E',
-      scope: {},
+      scope: {
+        format: '@'
+      },
       link: function (scope, element, attrs) {
-      	scope.time = 'monday 09';
+        var now = new Date();
+      	scope.time = $filter('date')(now, scope.format);
       }
     };
   });

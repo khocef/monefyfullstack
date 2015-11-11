@@ -36,7 +36,13 @@ CostSchema
   .path('ammount')
   .validate(function(ammount) {
     return ammount > 0;
-  }, 'Please fill in the ammount');
+  }, 'Please fill in the cost ammount.');
 
+
+CostSchema
+    .path('description')
+    .validate(function(description) {
+        return description.length > 0;
+    }, 'Please fill in the cost description.');
 
 module.exports = mongoose.model('Cost', CostSchema);
