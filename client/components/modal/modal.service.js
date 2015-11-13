@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('monefyApp')
-  .factory('Modal', function ($rootScope, $modal) {
+  .factory('Modal', function ($rootScope, $uibModal) {
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
      * @param  {String} modalClass - (optional) class(es) to be applied to the modal
-     * @return {Object}            - the instance $modal.open() returns
+     * @return {Object}            - the instance $uibModal.open() returns
      */
     function openModal(scope, modalClass) {
       var modalScope = $rootScope.$new();
@@ -15,7 +15,7 @@ angular.module('monefyApp')
 
       angular.extend(modalScope, scope);
 
-      return $modal.open({
+      return $uibModal.open({
         templateUrl: 'components/modal/modal.html',
         windowClass: modalClass,
         scope: modalScope
@@ -69,6 +69,40 @@ angular.module('monefyApp')
 
             deleteModal.result.then(function(event) {
               del.apply(event, args);
+            });
+          };
+        },
+
+        info: function(info) {
+          info = info || angular.noop;
+
+          /**
+           * Open an info modal
+           * @param  {String} name   - name or info to show on modal
+           * @param  {All}           - any additional args are passed straight to info callback
+           */
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+                name = args.shift(),
+                infoModal;
+
+            infoModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Information',
+                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                buttons: [{
+                  classes: 'btn-primary',
+                  text: 'Close',
+                  click: function(e) {
+                    infoModal.close(e);
+                  }
+                }]
+              }
+            }, '');
+
+            infoModal.result.then(function(event) {
+              info.apply(event, args);
             });
           };
         }

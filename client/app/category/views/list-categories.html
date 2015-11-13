@@ -1,0 +1,15 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container" data-ng-controller="CategoryCtrl" data-ng-init="loadAllCategories()">
+
+	<ul class="list-group">
+	    <li class="list-group-item" ng-repeat="category in categories">
+	        <img ng-src="assets/images/categories{{category.name}}.png" alt="">
+	        <span ng-class="{'text-muted': category.active === false}">{{category.name}}</span>
+	        <a ng-show="isAdmin" ng-click="disableCategory(category.name, category)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+	    </li>
+	</ul>
+
+</div>
+
+<div class="loader" loader=""></div>

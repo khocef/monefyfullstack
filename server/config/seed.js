@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Cost = require('../api/cost/cost.model');
+var Category = require('../api/category/category.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -75,5 +76,23 @@ Cost.find({}).remove(function() {
     user: user
   }, function() {
     console.log('finished populating costs')
+  });
+});
+
+Category.find({}).remove(function() {
+  Category.create({
+    name: 'Communications'
+  }, {
+    name: 'Home',
+    active: false
+  }, {
+    name: 'Food'
+  }, {
+    name: 'Transport'
+  }, {
+    name: 'Clothes',
+    active: false
+  }, function() {
+    console.log('finished populating categories')
   });
 });
