@@ -6,6 +6,7 @@
     <li class="list-group-item" ng-repeat="cost in costs">
         <strong>{{cost.ammount}}</strong><br>
         <span class="text-muted">{{cost.user.name}}</span>
+        <span class="text-muted">{{cost.category.name}}</span>
         <span class="text-muted">{{cost.created | date:'MM/dd/yyyy @ h:mma'}}</span>
         <span class="text-muted">{{cost.description}}</span>
         <a ng-click="delete(cost)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>

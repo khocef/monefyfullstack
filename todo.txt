@@ -1,0 +1,10 @@
+pouvoir creer des moyens de paiment
+
+pouvoir choisi un moyen de paiement dans une depense
+
+pouvir creer ses propores moyens de paiment
+
+pouvoir classer ses depenses selon le moyen de paiement
+
+
+

@@ -38,16 +38,21 @@
 				<numpad class="numpad" text="cost.ammount" max-length="ammountMaxLength"></numpad>
 			</div>
 		</div>
+		
+		<br/>
+		<div class="row">
+			<div class="col-sm-6">
+				<button ng-click="selectCategory(cost)" type="button" class="btn btn-default btn-lg btn-block">
+					<span ng-if="cost.category === null">Choose category</span>
+					<span ng-if="cost.category !== null">{{cost.category.name}}</span>
+				</button>
+			</div>
+		</div>
+
 		<br/>
 		<div class="row">
 			<div class="col-sm-6">
 				<button class="btn btn-default btn-lg btn-block" type="submit">Save</button>
-			</div>
-		</div>
-		<br/>
-		<div class="row">
-			<div class="col-sm-6">
-				<button type="button" class="btn btn-default btn-lg btn-block">Choose category</button>
 			</div>
 		</div>
 	</form>

@@ -5,7 +5,10 @@ var Cost = require('./cost.model');
 
 // Get list of costs
 exports.index = function(req, res) {
-  Cost.find().sort('-created').populate('user', 'name').exec(function (err, costs) {
+  Cost.find().sort('-created')
+    .populate('user', 'name')
+    .populate('category', 'name')
+    .exec(function (err, costs) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(costs);
   });

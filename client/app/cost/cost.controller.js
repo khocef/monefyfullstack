@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('monefyApp')
-  .controller('CostCtrl', ['$scope', '$log', '$location', 'costService', 'Auth', 'Modal', function ($scope, $log, $location, costService, Auth, Modal) {
+  .controller('CostCtrl', ['$scope', '$log', '$state', 'costService', 'Auth', 'Modal', 
+    function ($scope, $log, $state, costService, Auth, Modal) {
     
     $scope.costs = [];
-    $scope.cost = {
-        'ammount': '',
-        'description': '',
-        'user': Auth.getCurrentUser()
-    };
+    $scope.cost = costService.cost;
 
     /*
         Pouvoir saisir des montant avec des centimes et des euros,  {unit, cents, symbole}
@@ -31,11 +28,17 @@ angular.module('monefyApp')
         if(form.$valid) {
             //$scope.cost.user = Auth.getCurrentUser();
             costService.createCost($scope.cost).then(function(res) {
-                $location.url('/costs');
+                costService.clear();
+                $state.go('costs.list');
             }, function(err) {
                 $log.error('unable to save cost');
             });
         }
+    };
+
+    $scope.selectCategory = function(cost) {
+        //angular.copy(cost, costService.cost);
+        $state.go('categories.list');
     };
 
     $scope.delete = Modal.confirm.delete(function(cost) {

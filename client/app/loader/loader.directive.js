@@ -7,15 +7,18 @@ angular.module('monefyApp')
       restrict: 'EA',
       scope: {},
       link: function (scope, element, attrs) {
+        // hide the loader by default
+        $timeout(function() {
+            $(element).hide();
+          }, 1000);
+
       	$rootScope.$on('HTTP_CALL_STARTED', function() {
-          //$(element).removeClass('hide');
       		$(element).show();
           $log.info('HTTP_CALL_STARTED directive');
       	});
 
       	$rootScope.$on('HTTP_REPONSE_RECIEVED', function() {
           $timeout(function() {
-            //$(element).addClass('hide');
             $(element).hide();
           }, 1000);
           $log.info('HTTP_REPONSE_RECIEVED directive');

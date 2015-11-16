@@ -1,15 +1,25 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    User = require('../user/user.model');
 
 var CategorySchema = new Schema({
   name: {
   	type: String
   },
   active: {
-  	type: Boolean,
-  	default: true
+      type: Boolean,
+      default: true
+  }, isUserDefined: {
+      type: Boolean,
+      default: false
+  }, user: {
+      type: Schema.ObjectId,
+      ref: 'User'
+  }, icon: {
+    type: String,
+    default: ''
   }
 });
 

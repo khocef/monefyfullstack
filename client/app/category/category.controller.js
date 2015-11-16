@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('monefyApp')
-  .controller('CategoryCtrl', ['$scope', '$log', '$location', 'categoryService', 'Auth', 'Modal', '$uibModal', function ($scope, $log, $location, categoryService, Auth, Modal, $uibModal) {
+  .controller('CategoryCtrl', ['$scope', '$log', '$state', 'categoryService', 'Auth', 'Modal', '$uibModal','costService', 
+  	function ($scope, $log, $state, categoryService, Auth, Modal, $uibModal, costService) {
     $scope.message = 'Hello';
 
     $scope.categories = [];
@@ -19,6 +20,10 @@ angular.module('monefyApp')
     $scope.disableCategory = Modal.confirm.delete(function(category) {
 		$log.info(category);
 	});
-  
+  	
+  	$scope.selectCategory = function(category) {
+  		costService.setCategory(category);
+  		$state.go('costs.create');
+  	};
 
 }]);

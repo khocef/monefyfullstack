@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    User = require('../user/user.model');
+    User = require('../user/user.model'),
+    Category = require('../category/category.model');
 
 /**
  * Cost Schema
@@ -24,6 +25,10 @@ var CostSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
+    }, 
+    category: {
+        type: Schema.ObjectId,
+        ref: 'Category'
     }
 });
 

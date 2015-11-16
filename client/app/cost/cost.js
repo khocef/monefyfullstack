@@ -10,14 +10,17 @@ angular.module('monefyApp')
       })
       .state('costs.list', {
       	url: '',
-      	templateUrl: 'app/cost/views/list-costs.html'
+      	templateUrl: 'app/cost/views/list-costs.html',
+        authenticate: true
       })
       .state('costs.create', {
       	url: '/create',
-      	templateUrl: 'app/cost/views/create-cost.html'
+      	templateUrl: 'app/cost/views/create-cost.html',
+        authenticate: true
       })
       .state('costs.edit', {
         url: '/:costId/edit',
-        templateUrl: 'app/cost/views/edit-cost.html'
+        templateUrl: 'app/cost/views/edit-cost.html',
+        authenticate: true
       });
   });

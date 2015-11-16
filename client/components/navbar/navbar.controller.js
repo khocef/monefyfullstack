@@ -4,13 +4,16 @@ angular.module('monefyApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'link': '/',
+      'visible': true
     }, {
       'title': 'Costs',
-      'link': '/costs'
+      'link': '/costs',
+      'visible': Auth.isLoggedIn()
     }, {
       'title': 'Categories',
-      'link': '/categories'
+      'link': '/categories',
+      'visible': Auth.isLoggedIn()
     }];
 
     $scope.isCollapsed = true;
