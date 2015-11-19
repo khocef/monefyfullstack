@@ -1,22 +1,17 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container" data-ng-controller="CostCtrl" data-ng-init="loadAllCost()">
-  <p>Your costs from the begings of time.</p>
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="cost in costs">
-        <strong>{{cost.ammount}}</strong><br>
-        <span class="text-muted">{{cost.user.name}}</span>
-        <span class="text-muted">{{cost.category.name}}</span>
-        <span class="text-muted">{{cost.created | date:'MM/dd/yyyy @ h:mma'}}</span>
-        <span class="text-muted">{{cost.description}}</span>
-        <a ng-click="delete(cost)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-    </li>
-  </ul>
+  
   <div class="row">
-    <div class="col-sm-6">
-    <button class="btn btn-success" ui-sref="costs.create">Create new</button>
+    <div class="col-md-12 col-lg-12 col-sm-12">
+    <span>Test</span>
+    <button class="btn btn-success pull-right" ui-sref="costs.create">Create new</button>
     </div>
   </div>
+  <div class="vspace10"></div>
+
+  <ng-include src="'app/cost/views/list-costs-template.html'"></ng-include>
+  
 </div>
 
 <div class="loader" loader=""></div>

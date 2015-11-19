@@ -4,7 +4,10 @@
 
 	<ul class="list-group">
 	    <li class="list-group-item" ng-repeat="category in categories" ng-click="selectCategory(category)">
-	        <img ng-src="assets/images/categories{{category.name}}.png" alt="">
+ 			<span class="category-img">
+            	<img class="img-circle" ng-src="assets/images/categories/{{category.name}}.png" alt="">
+          	</span>
+
 	        <span ng-class="{'text-muted': category.active === false}">{{category.name}}</span>
 	        <a ng-show="" ng-click="disableCategory(category.name, category)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
 	    </li>
