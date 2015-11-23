@@ -1,13 +1,29 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container" data-ng-controller="CostCtrl" data-ng-init="loadAllCost()">
-  
+  <form class="form" name="form" ng-submit="" novalidate>
   <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
-    <span>Test</span>
-    <button class="btn btn-success pull-right" ui-sref="costs.create">Create new</button>
+      <button id="month" class="btn btn-success pull-right" ui-sref="costs.create">Create new</button>
+      <!-- <span>Drop down list showing moths since user joined tha app</span> -->
+
+      <div class="btn-group" uib-dropdown>
+        <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+          Dropdown on Body <span class="caret"></span>
+        </button>
+        <ul class="uib-dropdown-menu" role="menu">
+          <li role="menuitem"><a href="#">Action</a></li>
+          <li role="menuitem"><a href="#">Another action</a></li>
+          <li role="menuitem"><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li role="menuitem"><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+
+      
     </div>
   </div>
+  </form>
   <div class="vspace10"></div>
 
   <ng-include src="'app/cost/views/list-costs-template.html'"></ng-include>

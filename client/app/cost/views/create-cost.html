@@ -11,9 +11,17 @@
 		<br/>
 		<div class="row">
 			<div class="col-sm-6">  
-		        <div class="form-group input-group-lg" ng-class="{ 'has-success': form.ammount.$valid && form.$submitted,
+		        <div class="form-group" ng-class="{ 'has-success': form.ammount.$valid && form.$submitted,
                                             						'has-error': form.ammount.$invalid && form.$submitted }">
+			    <div class="input-group input-group-lg">
+			      	<div class="input-group-btn" uib-dropdown>
+			        	<button type="button" class="btn btn-default" uib-dropdown-toggle><i class="ion-card"></i></button>
+			        <div class="uib-dropdown-menu" role="menu">
+			          <div role="menuitem"><a href="#"><i class="ion-cash"></i></a></div>
+			        </div>
+			      </div>
 		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" disabled required="" />
+		        </div>
 		          	<p class="help-block" ng-show="form.ammount.$error.required && form.$submitted">
 			            An ammount is required
 			        </p>

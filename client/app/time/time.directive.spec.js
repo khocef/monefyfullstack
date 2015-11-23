@@ -12,10 +12,4 @@ describe('Directive: time', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<time></time>');
-    element = $compile(element)(scope);
-    scope.$apply();
-    //expect(element.text()).toBe('this is the time directive');
-  }));
 });
