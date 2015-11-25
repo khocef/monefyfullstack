@@ -27,14 +27,14 @@ describe('Directive: numpad', function () {
         expect(scope.floated).toBeFalsy();
      }));
 
-     it('should addNumber', inject(function() {
+     it('should add digits', inject(function() {
 
-      isolatedScope.addNumber(1);
+      isolatedScope.digit('1');
       expect(isolatedScope.text).toEqual('1');
 
-      isolatedScope.addNumber(2);
-      isolatedScope.addNumber(3);
-      isolatedScope.addNumber(4);
+      isolatedScope.digit('2');
+      isolatedScope.digit('3');
+      isolatedScope.digit('4');
       expect(isolatedScope.text).toEqual('1234');
 
      }));
@@ -43,28 +43,28 @@ describe('Directive: numpad', function () {
 
       expect(isolatedScope.disableNumpad).toBeFalsy();
 
-      isolatedScope.addNumber(1);
-      isolatedScope.addNumber(2);
-      isolatedScope.addNumber(3);
-      isolatedScope.addNumber(4);
+        isolatedScope.digit('1');
+        isolatedScope.digit('2');
+        isolatedScope.digit('3');
+        isolatedScope.digit('4');
 
-      expect(isolatedScope.text).toEqual('1234');
-      expect(isolatedScope.disableNumpad).toBeTruthy();
+        expect(isolatedScope.text).toEqual('1234');
+        expect(isolatedScope.disableNumpad).toBeTruthy();
 
-      isolatedScope.clear();
+        isolatedScope.clear();
 
-      expect(isolatedScope.text).toEqual('');
-      expect(isolatedScope.disableNumpad).toBeFalsy();
+        expect(isolatedScope.text).toEqual('');
+        expect(isolatedScope.disableNumpad).toBeFalsy();
      }));
 
      it('should remove the last number', inject(function() {
 
       expect(isolatedScope.disableNumpad).toBeFalsy();
 
-      isolatedScope.addNumber(1);
-      isolatedScope.addNumber(2);
-      isolatedScope.addNumber(3);
-      isolatedScope.addNumber(4);
+      isolatedScope.digit('1');
+      isolatedScope.digit('2');
+      isolatedScope.digit('3');
+      isolatedScope.digit('4');
 
       expect(isolatedScope.text).toEqual('1234');
       expect(isolatedScope.disableNumpad).toBeTruthy();
@@ -83,14 +83,14 @@ describe('Directive: numpad', function () {
 
       expect(isolatedScope.text).toEqual('');
 
-      isolatedScope.addNumber(1);
+      isolatedScope.digit('1');
 
       expect(isolatedScope.text).toEqual('1');
 
      }));
 
      it('should add 0. when the . symbole is added at first', inject(function() {
-      isolatedScope.addSymbole('.');
+      isolatedScope.floatingPoint();
       expect(isolatedScope.text).toEqual('0.');
      }));
 

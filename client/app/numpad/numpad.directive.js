@@ -15,33 +15,102 @@ angular.module('monefyApp')
         $scope.floated = false;
         $scope.floatCount = 0;
 
-      	$scope.addNumber = function(number) {
-      		if ($scope.text.length < $scope.maxLength && $scope.floatCount < 2) {
-      			$scope.text += number;
-          }
-          if ($scope.text.length === $scope.maxLength) {
-            $scope.disableNumpad = true;
-          }
-          if ($scope.floated && $scope.floatCount < 2) {
-            $scope.floatCount++;
-          }
+        $scope.memoryA = 0;
+        $scope.memoryB = 0;
+        $scope.clearValue = true;
+
+        $scope.selectedOperation = null;
+
+
+        $scope.operationKeys = [
+          {label: "+", operation: function (a, b) {return a + b}},
+          {label: "-", operation: function (a, b) {return a - b}},
+          {label: "*", operation: function (a, b) {return a * b}},
+          {label: "/", operation: function (a, b) {return a / b}}
+        ];
+
+
+        /**
+         * @param  {number}
+         * @return {void}
+         */
+      	$scope.digit = function(number) {
+      		if ($scope.clearValue) {
+             	$scope.text = number;
+              	$scope.clearValue = false;
+	        } else {
+              	$scope.text += number;
+          	}
+
+            $scope.memoryB = $scope.text;
+			
+			if ($scope.floated && $scope.floatCount < 2) {
+				$scope.floatCount++;
+			}
+			
+			if ($scope.text.length === $scope.maxLength || $scope.floatCount === 2) {
+				$scope.disableNumpad = true;
+			}
       	};
 
-        $scope.addSymbole = function(symbole) {
-          if (symbole === '.' && !$scope.floated) {
-            if ($scope.text.length === 0) {
-              $scope.addNumber(0);
-            }
-            $scope.text += symbole;
-            $scope.floated = true;
+        $scope.add = function() {
+          	$scope.selectedOperation = $scope.operationKeys[0].operation;
+          	$scope.memorize();
+          	$scope.init();
+        };
+
+        $scope.substract = function() {
+          	$scope.selectedOperation = $scope.operationKeys[1].operation;
+          	$scope.memorize();
+          	$scope.init();
+        };
+
+        $scope.multiply = function() {
+        	$scope.selectedOperation = $scope.operationKeys[2].operation;
+          	$scope.memorize();
+          	$scope.init();
+        };
+
+        $scope.divide = function() {
+        	$scope.selectedOperation = $scope.operationKeys[3].operation;
+          	$scope.memorize();
+          	$scope.init();
+        };
+
+        $scope.calculate = function() {
+          if($scope.selectedOperation!=null) {
+            $scope.text = $scope.selectedOperation(parseFloat($scope.memoryA), parseFloat($scope.memoryB));
+            $scope.text = $scope.text.toFixed(2);
+            $scope.memoryA = $scope.text;
+            $scope.init();
           }
         };
 
+        $scope.floatingPoint = function() {
+			if ($scope.text.length === 0 || $scope.clearValue) {
+        		$scope.digit('0');
+        	}
+          	if (!$scope.floated) {
+            	$scope.text += '.';
+            	$scope.floated = true;
+          	}
+        };
+
       	$scope.clear = function() {
-      		$scope.text = "";
-          $scope.disableNumpad = false;
-          $scope.floated = false;
-          $scope.floatCount = 0;
+      		$scope.text = '';
+          	$scope.init();
+      	};
+
+      	$scope.memorize = function() {
+      		$scope.memoryA = $scope.text;
+          	$scope.memoryB = $scope.text;
+      	};
+
+      	$scope.init = function() {
+      		$scope.clearValue = true;
+          	$scope.disableNumpad = false;
+          	$scope.floated = false;
+          	$scope.floatCount = 0;
       	};
       	
       	$scope.removeLast = function() {
@@ -60,8 +129,6 @@ angular.module('monefyApp')
           }
       	};
 
-      }],
-      link: function (scope, element, attrs) {
-      }
+      }]
     };
   });
