@@ -11,6 +11,16 @@ exports.index = function(req, res) {
   });
 };
 
+// Get list of user categories and default ones
+exports.findByUser = function(req, res) {
+  Category.find({ $or: [{'user': req.params.id}, {'isUserDefined': false}] })
+    .sort('-isUserDefined')
+    .exec(function(err, categories) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(categories);
+  });
+};
+
 // Get a single category
 exports.show = function(req, res) {
   Category.findById(req.params.id, function (err, category) {
