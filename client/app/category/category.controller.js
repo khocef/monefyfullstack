@@ -8,9 +8,8 @@ angular.module('monefyApp')
     $scope.categories = [];
     $scope.isAdmin = Auth.isAdmin();
 
-
     $scope.loadAllCategories = function() {
-    	categoryService.loadAllCategories().then(function (res) {
+    	categoryService.loadAllCategoriesByUser().then(function (res) {
         	$scope.categories = res.data;
         }, function() {
             
@@ -22,8 +21,10 @@ angular.module('monefyApp')
 	});
   	
   	$scope.selectCategory = function(category) {
-  		costService.setCategory(category);
-  		$state.go('costs.create');
+      if (category.active) {
+        costService.setCategory(category);
+        $state.go('costs.create');
+      }
   	};
 
 }]);

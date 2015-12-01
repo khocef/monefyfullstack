@@ -9,3 +9,6 @@ pouvoir classer ses depenses selon le moyen de paiement
 
 
 bower install ionicons
+
+
+mongod.exe --config ../mongod.cfg

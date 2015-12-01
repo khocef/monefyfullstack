@@ -15,11 +15,17 @@
                                             						'has-error': form.ammount.$invalid && form.$submitted }">
 			    <div class="input-group input-group-lg">
 			      	<div class="input-group-btn" uib-dropdown>
-			        	<button type="button" class="btn btn-default" uib-dropdown-toggle><i class="ion-card"></i></button>
-			        <div class="uib-dropdown-menu" role="menu">
-			          <div role="menuitem"><a href="#"><i class="ion-cash"></i></a></div>
-			        </div>
-			      </div>
+			        	<button type="button" class="btn btn-default" uib-dropdown-toggle>
+			        		<i class="ion-card"></i>
+			        	</button>
+				        <ul class="uib-dropdown-menu" role="menu">
+				          	<li role="menuitem">
+					          	<a href="#">
+					          		<i class="ion-cash"></i>
+					          	</a>
+				          	</li>
+				        </ul>
+			      	</div>
 		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" disabled required="" />
 		        </div>
 		          	<p class="help-block" ng-show="form.ammount.$error.required && form.$submitted">

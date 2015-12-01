@@ -35,6 +35,7 @@ User.find({}).remove(function() {
 /**
  * Categories 
 **/
+
 var communications = new Category({
   name: 'Communications'
 });
@@ -45,11 +46,15 @@ var home = new Category({
 });
 
 var food = new Category({
-  name: 'Food'
+  name: 'Food',
+  user: admin,
+  isUserDefined: true
 });
 
 var trasport = new Category( {
-  name: 'Transport'
+  name: 'Transport',
+  user: khocef,
+  isUserDefined: true
 });
 
 var clothes = new Category({

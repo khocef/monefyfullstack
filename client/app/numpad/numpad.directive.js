@@ -6,14 +6,16 @@ angular.module('monefyApp')
       templateUrl: 'app/numpad/numpad.html',
       restrict: 'E',
       scope: {
-     	  text: '=',
-     	  maxLength: '=',
+     	text: '=',
+     	maxLength: '=',
         disableNumpad: '='
       },
       controller: ['$scope', '$log', function($scope, $log) {
       	
         $scope.floated = false;
         $scope.floatCount = 0;
+
+        $scope.disableNumpad = false;
 
         $scope.memoryA = 0;
         $scope.memoryB = 0;
@@ -72,15 +74,21 @@ angular.module('monefyApp')
         };
 
         $scope.divide = function() {
-        	$scope.selectedOperation = $scope.operationKeys[3].operation;
+	        $scope.selectedOperation = $scope.operationKeys[3].operation;
           	$scope.memorize();
           	$scope.init();
         };
 
         $scope.calculate = function() {
           if($scope.selectedOperation!=null) {
-            $scope.text = $scope.selectedOperation(parseFloat($scope.memoryA), parseFloat($scope.memoryB));
-            $scope.text = $scope.text.toFixed(2);
+          	if ($scope.memoryB === '0') {
+        		$scope.text = '0';
+        	} else {
+            	$scope.text = $scope.selectedOperation(parseFloat($scope.memoryA), parseFloat($scope.memoryB));
+            }
+            if ($scope.text.contains('.')) {
+	            $scope.text = $scope.text.toFixed(2);
+            }
             $scope.memoryA = $scope.text;
             $scope.init();
           }
@@ -98,6 +106,12 @@ angular.module('monefyApp')
 
       	$scope.clear = function() {
       		$scope.text = '';
+
+        	$scope.memoryA = 0;
+        	$scope.memoryB = 0;
+        	$scope.clearValue = true;
+	        $scope.selectedOperation = null;
+
           	$scope.init();
       	};
 

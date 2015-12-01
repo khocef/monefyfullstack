@@ -3,7 +3,7 @@
 <div class="container" data-ng-controller="CategoryCtrl" data-ng-init="loadAllCategories()">
 
 	<ul class="list-group">
-	    <li class="list-group-item" ng-repeat="category in categories" ng-click="selectCategory(category)">
+	    <li class="list-group-item" ng-repeat="category in categories" ng-click="selectCategory(category)" ng-disabled="category.active === false">
  			<span class="category-img">
             	<img class="img-circle" ng-src="assets/images/categories/{{category.name}}.png" alt="">
           	</span>
