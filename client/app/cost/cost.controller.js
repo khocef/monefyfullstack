@@ -20,6 +20,10 @@ angular.module('monefyApp')
     $scope.selectedPaymentMethod = costService.selectedPaymentMethod;
 
 
+    $controller('PaymentMethodCtrl', {
+        $scope: $scope
+    });
+
     $scope.loadAllCost = function() {
 
         paymentMethodService.loadAllPaymentMethods().then(function (res) {
@@ -47,6 +51,11 @@ angular.module('monefyApp')
         });
     };
 
+    $scope.setCostPaymementMethod = function(method) {
+        $scope.selectedPaymentMethod = method;
+        $scope.loadAllCost();
+    };
+
     $scope.create = function(form) {
 
         if(form.$valid) {
@@ -70,9 +79,6 @@ angular.module('monefyApp')
     });
 
 
-    $scope.setPaymementMethod = function(method) {
-        $scope.selectedPaymentMethod = method;
-        $scope.loadAllCost();
-    };
+    
 
   }]);
