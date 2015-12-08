@@ -3,11 +3,26 @@
 var _ = require('lodash');
 var Cost = require('./cost.model');
 
-// Get list of costs
+// Get list of costs by user
 exports.index = function(req, res) {
-  Cost.find().sort('-created')
+  Cost.find({'user': req.params.userId})
+    .sort('-created')
     .populate('user', 'name')
     .populate('category', 'name')
+    .populate('paymentMethod', 'name')
+    .exec(function (err, costs) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(costs);
+  });
+};
+
+// Get list of costs by user and payment method
+exports.findByUserAndPaymentMethod = function(req, res) {
+  Cost.find({ $and: [{'user': req.params.userId}, {'paymentMethod': req.params.paymentMethod} ]})
+    .sort('-created')
+    .populate('user', 'name')
+    .populate('category', 'name')
+    .populate('paymentMethod', 'name')
     .exec(function (err, costs) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(costs);

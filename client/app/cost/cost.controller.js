@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('monefyApp')
-  .controller('CostCtrl', ['$scope', '$log', '$state', 'costService', 'Auth', 'Modal', 
-    function ($scope, $log, $state, costService, Auth, Modal) {
+  .controller('CostCtrl', ['$scope', '$log', '$state', '$controller', 'costService', 'paymentMethodService', 'Auth', 'Modal', 
+    function ($scope, $log, $state, $controller, costService, paymentMethodService, Auth, Modal) {
     
     $scope.costs = [];
     $scope.cost = costService.cost;
@@ -15,11 +15,35 @@ angular.module('monefyApp')
 
     $scope.errors = {};
 
+
+    $scope.paymentMethods = [];
+    $scope.selectedPaymentMethod = costService.selectedPaymentMethod;
+
+
     $scope.loadAllCost = function() {
-        costService.loadAllCosts().then(function (res) {
-        	$scope.costs = res.data;
-        }, function() {
-            
+
+        paymentMethodService.loadAllPaymentMethods().then(function (res) {
+            if ($scope.selectedPaymentMethod === undefined || $scope.selectedPaymentMethod === null) {
+                $scope.paymentMethods = res.data;
+                $scope.paymentMethods.push({_id: '-1', name: 'All'});
+                $scope.selectedPaymentMethod = $scope.paymentMethods[$scope.paymentMethods.length - 1];
+            } 
+            if ($scope.selectedPaymentMethod._id === '-1') {
+                costService.loadAllCosts().then(function (res) {
+                    $scope.costs = res.data;
+                }, function(err) {
+                    // handle error for cost loading 
+                });
+            } else {
+                costService.loadAllCostsByPaymentMethod($scope.selectedPaymentMethod).then(function (res) {
+                    $scope.costs = res.data;
+                }, function(err) {
+                    // handle error for cost loading 
+                });
+            }
+
+        }, function(err) {
+          // handle error for payment methods loading
         });
     };
 
@@ -44,5 +68,11 @@ angular.module('monefyApp')
     $scope.delete = Modal.confirm.delete(function(cost) {
     	$log.info(cost);
     });
+
+
+    $scope.setPaymementMethod = function(method) {
+        $scope.selectedPaymentMethod = method;
+        $scope.loadAllCost();
+    };
 
   }]);

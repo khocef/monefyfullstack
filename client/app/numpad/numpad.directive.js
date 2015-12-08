@@ -6,8 +6,8 @@ angular.module('monefyApp')
       templateUrl: 'app/numpad/numpad.html',
       restrict: 'E',
       scope: {
-     	text: '=',
-     	maxLength: '=',
+     	  text: '=',
+     	  maxLength: '=',
         disableNumpad: '='
       },
       controller: ['$scope', '$log', function($scope, $log) {
@@ -46,13 +46,13 @@ angular.module('monefyApp')
 
             $scope.memoryB = $scope.text;
 			
-			if ($scope.floated && $scope.floatCount < 2) {
-				$scope.floatCount++;
-			}
-			
-			if ($scope.text.length === $scope.maxLength || $scope.floatCount === 2) {
-				$scope.disableNumpad = true;
-			}
+    			if ($scope.floated && $scope.floatCount < 2) {
+    				$scope.floatCount++;
+    			}
+    			
+    			if ($scope.text.length === $scope.maxLength || $scope.floatCount === 2) {
+    				$scope.disableNumpad = true;
+    			}
       	};
 
         $scope.add = function() {
@@ -81,9 +81,9 @@ angular.module('monefyApp')
 
         $scope.calculate = function() {
           if($scope.selectedOperation!=null) {
-          	if ($scope.memoryB === '0') {
-        		$scope.text = '0';
-        	} else {
+          	if ($scope.memoryB === '0' && $scope.selectedOperation.label === "/") {
+        		  $scope.text = '0';
+            } else {
             	$scope.text = $scope.selectedOperation(parseFloat($scope.memoryA), parseFloat($scope.memoryB));
             }
             if ($scope.text.contains('.')) {
@@ -95,13 +95,13 @@ angular.module('monefyApp')
         };
 
         $scope.floatingPoint = function() {
-			if ($scope.text.length === 0 || $scope.clearValue) {
+			    if ($scope.text.length === 0 || $scope.clearValue) {
         		$scope.digit('0');
         	}
-          	if (!$scope.floated) {
-            	$scope.text += '.';
-            	$scope.floated = true;
-          	}
+        	if (!$scope.floated) {
+          	$scope.text += '.';
+          	$scope.floated = true;
+        	}
         };
 
       	$scope.clear = function() {
@@ -117,7 +117,7 @@ angular.module('monefyApp')
 
       	$scope.memorize = function() {
       		$scope.memoryA = $scope.text;
-          	$scope.memoryB = $scope.text;
+          $scope.memoryB = $scope.text;
       	};
 
       	$scope.init = function() {

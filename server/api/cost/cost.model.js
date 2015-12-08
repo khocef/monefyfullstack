@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     User = require('../user/user.model'),
-    Category = require('../category/category.model');
+    Category = require('../category/category.model'),
+    PaymentMethod = require('../paymentMethod/paymentMethod.model');
 
 /**
  * Cost Schema
@@ -29,6 +30,10 @@ var CostSchema = new Schema({
     category: {
         type: Schema.ObjectId,
         ref: 'Category'
+    },
+    paymentMethod: {
+        type: Schema.ObjectId,
+        ref: 'PaymentMethod'
     }
 });
 

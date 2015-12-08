@@ -8,6 +8,7 @@
 var User = require('../api/user/user.model');
 var Cost = require('../api/cost/cost.model');
 var Category = require('../api/category/category.model');
+var PaymentMethod = require('../api/paymentMethod/paymentMethod.model');
 
 /**
  * Users 
@@ -67,6 +68,29 @@ Category.find({}).remove(function() {
 });
 
 /**
+ * Payment Methods
+ */
+
+var card = new PaymentMethod({
+  name: 'Card',
+  active: true
+});
+
+var cash = new PaymentMethod({
+  name: 'Cash',
+  active: true
+});
+
+var cash = new PaymentMethod({
+  name: 'Cheque',
+  active: true
+});
+
+PaymentMethod.find({}).remove(function() {
+  PaymentMethod.create(card, cash, function() { console.log('finished populating PaymentMethods')})
+});
+
+/**
  * Costs 
 **/
 
@@ -76,17 +100,20 @@ Cost.find({}).remove(function() {
     ammount: 570,
     description: 'Appartment rent.',
     user: khocef,
-    category: home
+    category: home,
+    paymentMethod: card
   }, {
     ammount: 400,
     description: 'Food.',
     user: khocef,
-    category: food
+    category: food,
+    paymentMethod: cash
   }, {
     ammount: 30,
     description: 'Electricity.',
     user: khocef,
-    category: home
+    category: home,
+    paymentMethod: card
   }, function() {
     console.log('finished populating costs')
   });

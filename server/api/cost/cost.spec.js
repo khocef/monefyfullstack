@@ -45,7 +45,7 @@ describe('Cost CRUD tests - /api/costs', function() {
 
   it('should respond with JSON array', function(done) {
     request(app)
-      .get('/api/costs')
+      .get('/api/costs/' + user._id)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
@@ -71,7 +71,7 @@ describe('Cost CRUD tests - /api/costs', function() {
         if (costsaveErr) return done(costsaveErr);
 
         request(app)
-        .get('/api/costs')
+        .get('/api/costs/' + user._id)
         .expect(200)
         .end(function(costsgetErr, costsgetRes) {
           if (costsgetErr) return done(costsgetErr);

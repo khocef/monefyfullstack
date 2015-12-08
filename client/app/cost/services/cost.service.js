@@ -9,15 +9,21 @@ angular.module('monefyApp')
       'ammount': '',
       'description': '',
       'user': Auth.getCurrentUser(),
-      'category': null
+      'category': null,
+      'paymentMethod': null
     };
+
+    this.selectedPaymentMethod = null;
+
+    this.total = '';
 
     this.clear = function() {
       this.cost = {
         'ammount': '',
         'description': '',
         'user': Auth.getCurrentUser(),
-        'category': null
+        'category': null,
+        'paymentMethod': null
       };
     };
 
@@ -26,9 +32,16 @@ angular.module('monefyApp')
     };
 
     this.loadAllCosts = function() {
+      return $http({
+        method: 'GET',
+        url: '/api/costs/' + this.cost.user._id
+      });
+    };
+
+    this.loadAllCostsByPaymentMethod = function(selectedPaymentMethod) {
 	    return $http({
 	    	method: 'GET',
-	    	url: '/api/costs'
+	    	url: '/api/costs/' + this.cost.user._id + '/' + selectedPaymentMethod._id
 	    });
     };
 
@@ -39,5 +52,4 @@ angular.module('monefyApp')
         data: cost
       });
     };
-
   });
