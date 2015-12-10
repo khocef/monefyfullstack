@@ -10,11 +10,11 @@
 
       <div class="btn-group" uib-dropdown>
         <button type="button" class="btn btn-primary" uib-dropdown-toggle>
-          {{selectedPaymentMethod.name}} <span class="caret"></span>
+          {{displayedCostsSelectedPaymentMethod.name}} <span class="caret"></span>
         </button>
         <ul class="uib-dropdown-menu" role="menu">
           <li data-ng-repeat="method in paymentMethods" role="menuitem">
-            <a href="#" data-ng-click="setCostPaymementMethod(method)">{{method.name}}</a>
+            <a href="#" data-ng-click="setDisplayedCostsPaymementMethod(method)">{{method.name}}</a>
           </li>
         </ul>
       </div>

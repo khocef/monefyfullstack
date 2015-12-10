@@ -4,6 +4,10 @@ angular.module('monefyApp')
   .controller('CostCtrl', ['$scope', '$log', '$state', '$controller', 'costService', 'paymentMethodService', 'Auth', 'Modal', 
     function ($scope, $log, $state, $controller, costService, paymentMethodService, Auth, Modal) {
     
+/*    $controller('PaymentMethodCtrl', {
+        $scope: $scope
+    });*/
+
     $scope.costs = [];
     $scope.cost = costService.cost;
 
@@ -15,31 +19,25 @@ angular.module('monefyApp')
 
     $scope.errors = {};
 
-
     $scope.paymentMethods = [];
-    $scope.selectedPaymentMethod = costService.selectedPaymentMethod;
-
-
-    $controller('PaymentMethodCtrl', {
-        $scope: $scope
-    });
+    $scope.displayedCostsSelectedPaymentMethod = costService.displayedCostsSelectedPaymentMethod;
 
     $scope.loadAllCost = function() {
 
         paymentMethodService.loadAllPaymentMethods().then(function (res) {
-            if ($scope.selectedPaymentMethod === undefined || $scope.selectedPaymentMethod === null) {
+            if ($scope.displayedCostsSelectedPaymentMethod === undefined || $scope.displayedCostsSelectedPaymentMethod === null) {
                 $scope.paymentMethods = res.data;
                 $scope.paymentMethods.push({_id: '-1', name: 'All'});
-                $scope.selectedPaymentMethod = $scope.paymentMethods[$scope.paymentMethods.length - 1];
+                $scope.displayedCostsSelectedPaymentMethod = $scope.paymentMethods[$scope.paymentMethods.length - 1];
             } 
-            if ($scope.selectedPaymentMethod._id === '-1') {
+            if ($scope.displayedCostsSelectedPaymentMethod._id === '-1') {
                 costService.loadAllCosts().then(function (res) {
                     $scope.costs = res.data;
                 }, function(err) {
                     // handle error for cost loading 
                 });
             } else {
-                costService.loadAllCostsByPaymentMethod($scope.selectedPaymentMethod).then(function (res) {
+                costService.loadAllCostsByPaymentMethod($scope.displayedCostsSelectedPaymentMethod).then(function (res) {
                     $scope.costs = res.data;
                 }, function(err) {
                     // handle error for cost loading 
@@ -51,13 +49,16 @@ angular.module('monefyApp')
         });
     };
 
-    $scope.setCostPaymementMethod = function(method) {
-        $scope.selectedPaymentMethod = method;
-        $scope.loadAllCost();
+    $scope.setDisplayedCostsPaymementMethod = function(method) {
+        if ($scope.displayedCostsSelectedPaymentMethod._id !== method._id) {
+            $scope.displayedCostsSelectedPaymentMethod = method;
+            $scope.loadAllCost();
+        } else {
+            $log.info('Payment Method "'+ method.name + '" unchanged.')
+        }
     };
 
     $scope.create = function(form) {
-
         if(form.$valid) {
             //$scope.cost.user = Auth.getCurrentUser();
             costService.createCost($scope.cost).then(function(res) {
@@ -78,7 +79,19 @@ angular.module('monefyApp')
     	$log.info(cost);
     });
 
+    $scope.loadAllPaymentMethods = function() {
+            paymentMethodService.loadAllPaymentMethods().then(function (res) {
+                $scope.paymentMethods = res.data;
+                if(costService.cost.paymentMethod === null || costService.cost.paymentMethod === undefined) {
+                    $scope.setPaymementMethod(res.data[0]);
+                }
+            }, function(err) {
+                // handle paymentmethods loading error
+            });
+        };
 
-    
+    $scope.setPaymementMethod = function(method) {
+        costService.setPaymentMethod(method);
+    };
 
   }]);

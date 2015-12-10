@@ -17,16 +17,16 @@
 			    <div class="input-group input-group-lg" data-ng-init="loadAllPaymentMethods()">
 			      	<div class="input-group-btn" uib-dropdown>
 				        <button type="button" class="btn btn-primary" uib-dropdown-toggle>
-				          <i class="ion-card"></i>
+				          {{cost.paymentMethod.name}}
 				        </button>
 				        <ul class="uib-dropdown-menu" role="menu">
 				          <li data-ng-repeat="method in paymentMethods" role="menuitem">
 				            <a href="#" data-ng-click="setPaymementMethod(method)">
-				            	<i class="ion-cash"></i>{{method.name}}</a>
+				            	{{method.name}}
+				            </a>
 				          </li>
 				        </ul>
 				    </div>
-
 
 		          	<input type="text" name="ammount" class="form-control" ng-model="cost.ammount" disabled required="" />
 		        </div>

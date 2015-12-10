@@ -15,6 +15,8 @@ angular.module('monefyApp')
 
     this.selectedPaymentMethod = null;
 
+    //this.displayedCostsSelectedPaymentMethod = null;
+
     this.total = '';
 
     this.clear = function() {
@@ -25,6 +27,10 @@ angular.module('monefyApp')
         'category': null,
         'paymentMethod': null
       };
+    };
+
+    this.setPaymentMethod = function(paymentMethod){
+      this.cost.paymentMethod = paymentMethod;
     };
 
     this.setCategory = function(category){
@@ -46,6 +52,7 @@ angular.module('monefyApp')
     };
 
     this.createCost = function(cost) {
+      console.log(cost);
       return $http({
         method: 'POST',
         url: '/api/costs',

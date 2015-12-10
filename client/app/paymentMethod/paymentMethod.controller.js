@@ -5,7 +5,7 @@ angular.module('monefyApp')
   	function ($scope, paymentMethodService, costService) {
 
   		$scope.paymentMethods = [];
-  		$scope.selectedPaymentMethod = costService.cost.paymentMethod;
+  		$scope.selectedPaymentMethod = costService.cost.selectedPaymentMethod;
 
   		$scope.loadAllPaymentMethods = function() {
         	paymentMethodService.loadAllPaymentMethods().then(function (res) {
@@ -17,7 +17,7 @@ angular.module('monefyApp')
     	};
 
     	$scope.setPaymementMethod = function(method) {
-    		$scope.selectedPaymentMethod = method;
+        costService.setPaymentMethod(method);
     	};
 
   }]);
