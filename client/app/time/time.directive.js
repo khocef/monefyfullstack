@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('monefyApp')
-  .directive('time', function ($filter) {
+  .directive('time', function ($filter, costService) {
     return {
       templateUrl: 'app/time/time.html',
       restrict: 'E',
@@ -9,8 +9,19 @@ angular.module('monefyApp')
         format: '@'
       },
       link: function (scope, element, attrs) {
-        var now = new Date();
-      	scope.time = $filter('date')(now, scope.format);
+        scope.now = costService.cost.created;
+
+        scope.datePickerOptions = {
+          'opened': false
+        };
+
+        scope.openCalendar = function() {
+          scope.datePickerOptions.opened = true;
+        };
+
+        scope.update = function() {
+          costService.setCreated(scope.now);
+        };
       }
     };
-  });
+});

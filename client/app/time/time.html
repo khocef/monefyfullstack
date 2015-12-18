@@ -1,1 +1,1 @@
-{{time}}
+<i class="fa fa-2x fa-calendar" ng-click="openCalendar()" uib-datepicker-popup="{{format}}" ng-model="now" is-open="datePickerOptions.opened" show-weeks="false" ng-change="update()"></i>&nbsp;{{now | date : format}}

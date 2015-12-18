@@ -80,15 +80,15 @@ angular.module('monefyApp')
     });
 
     $scope.loadAllPaymentMethods = function() {
-            paymentMethodService.loadAllPaymentMethods().then(function (res) {
-                $scope.paymentMethods = res.data;
-                if(costService.cost.paymentMethod === null || costService.cost.paymentMethod === undefined) {
-                    $scope.setPaymementMethod(res.data[0]);
-                }
-            }, function(err) {
-                // handle paymentmethods loading error
-            });
-        };
+        paymentMethodService.loadAllPaymentMethods().then(function (res) {
+            $scope.paymentMethods = res.data;
+            if(costService.cost.paymentMethod === null || costService.cost.paymentMethod === undefined) {
+                $scope.setPaymementMethod(res.data[0]);
+            }
+        }, function(err) {
+            // handle paymentmethods loading error
+        });
+    };
 
     $scope.setPaymementMethod = function(method) {
         costService.setPaymentMethod(method);

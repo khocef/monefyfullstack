@@ -10,12 +10,11 @@ angular.module('monefyApp')
       'description': '',
       'user': Auth.getCurrentUser(),
       'category': null,
-      'paymentMethod': null
+      'paymentMethod': null,
+      'created': new Date()
     };
 
     this.selectedPaymentMethod = null;
-
-    //this.displayedCostsSelectedPaymentMethod = null;
 
     this.total = '';
 
@@ -25,7 +24,8 @@ angular.module('monefyApp')
         'description': '',
         'user': Auth.getCurrentUser(),
         'category': null,
-        'paymentMethod': null
+        'paymentMethod': null,
+        'created': new Date()
       };
     };
 
@@ -35,6 +35,10 @@ angular.module('monefyApp')
 
     this.setCategory = function(category){
       this.cost.category = category;
+    };
+
+    this.setCreated = function(created) {
+      this.cost.created = created;
     };
 
     this.loadAllCosts = function() {
