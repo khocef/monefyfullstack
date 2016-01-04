@@ -15,7 +15,7 @@ angular.module('monefyApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $window.location.href = '/';
+          $window.location.href = '/costs';
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

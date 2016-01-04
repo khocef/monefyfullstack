@@ -5,11 +5,23 @@ angular.module('monefyApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularMoment'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    /*$urlRouterProvider
+      .otherwise('/');*/
+
     $urlRouterProvider
-      .otherwise('/');
+    .otherwise(function($injector) {
+      $injector.get('$state').transitionTo('404');
+    });
+
+    $stateProvider
+    .state('404', {
+      templateUrl: '/components/errors/404.html'
+    });
+
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');

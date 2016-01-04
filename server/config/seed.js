@@ -101,7 +101,8 @@ Cost.find({}).remove(function() {
     description: 'Appartment rent.',
     user: khocef,
     category: home,
-    paymentMethod: card
+    paymentMethod: card,
+    created: new Date(2015, 11, 17)
   }, {
     ammount: 400,
     description: 'Food.',

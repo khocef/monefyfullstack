@@ -5,7 +5,18 @@ var Cost = require('./cost.model');
 
 // Get list of costs by user
 exports.index = function(req, res) {
-  Cost.find({'user': req.params.userId})
+  var userId = req.query.userId;
+  var from = req.query.from;
+  var to = req.query.to;
+
+  Cost.find( { $and: [
+                {'user': userId},
+                { $and: [
+                  {'created': {$gte: from}},
+                  {'created': {$lte: to}}
+                  ] 
+                }]
+              })
     .sort('-created')
     .populate('user', 'name')
     .populate('category', 'name')
@@ -18,7 +29,21 @@ exports.index = function(req, res) {
 
 // Get list of costs by user and payment method
 exports.findByUserAndPaymentMethod = function(req, res) {
-  Cost.find({ $and: [{'user': req.params.userId}, {'paymentMethod': req.params.paymentMethod} ]})
+  var from = req.query.from;
+  var to = req.query.to;
+  var userId = req.query.userId;
+  var paymentMethodId = req.query.paymentMethodId;
+  
+  Cost.find({ $and: [
+                {'user': userId},
+                {'paymentMethod': paymentMethodId},
+                { $and: [
+                  {'created': {$gte: from}},
+                  {'created': {$lte: to}}
+                  ] 
+                }
+              ]
+            })
     .sort('-created')
     .populate('user', 'name')
     .populate('category', 'name')

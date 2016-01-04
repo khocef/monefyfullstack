@@ -13,7 +13,9 @@
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.15",
-    "Ionicons": "ionicons#~2.0.1"
+    "Ionicons": "ionicons#~2.0.1",
+    "moment": "momentjs#~2.10.6",
+    "angular-moment": "~0.10.3"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

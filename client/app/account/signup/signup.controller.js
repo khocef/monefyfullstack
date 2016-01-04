@@ -16,7 +16,7 @@ angular.module('monefyApp')
         })
         .then( function() {
           // Account created, redirect to home
-          $window.location.href = '/';
+          $window.location.href = '/costs';
         })
         .catch( function(err) {
           err = err.data;

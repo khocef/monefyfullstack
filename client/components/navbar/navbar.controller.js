@@ -3,10 +3,6 @@
 angular.module('monefyApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/',
-      'visible': true
-    }, {
       'title': 'Costs',
       'link': '/costs',
       'visible': Auth.isLoggedIn()

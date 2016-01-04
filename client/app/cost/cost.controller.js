@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('monefyApp')
-  .controller('CostCtrl', ['$scope', '$log', '$state', '$controller', 'costService', 'paymentMethodService', 'Auth', 'Modal', 
-    function ($scope, $log, $state, $controller, costService, paymentMethodService, Auth, Modal) {
+  .controller('CostCtrl', ['$scope', '$log', '$state', '$controller', 'costService', 'paymentMethodService', 'Auth', 'Modal', 'utils', 
+    function ($scope, $log, $state, $controller, costService, paymentMethodService, Auth, Modal, utils) {
     
-/*    $controller('PaymentMethodCtrl', {
+    /*$controller('PaymentMethodCtrl', {
         $scope: $scope
     });*/
 
@@ -22,7 +22,14 @@ angular.module('monefyApp')
     $scope.paymentMethods = [];
     $scope.displayedCostsSelectedPaymentMethod = costService.displayedCostsSelectedPaymentMethod;
 
+    $scope.selectedDate = '';
+
+
+
     $scope.loadAllCost = function() {
+        var year = costService.selectedMonth.moment.get('year');
+        var month = costService.selectedMonth.moment.get('month');
+        var range = utils.getMonthDateRange(year, month);
 
         paymentMethodService.loadAllPaymentMethods().then(function (res) {
             if ($scope.displayedCostsSelectedPaymentMethod === undefined || $scope.displayedCostsSelectedPaymentMethod === null) {
@@ -31,13 +38,13 @@ angular.module('monefyApp')
                 $scope.displayedCostsSelectedPaymentMethod = $scope.paymentMethods[$scope.paymentMethods.length - 1];
             } 
             if ($scope.displayedCostsSelectedPaymentMethod._id === '-1') {
-                costService.loadAllCosts().then(function (res) {
+                costService.loadAllCosts(range.start, range.end).then(function (res) {
                     $scope.costs = res.data;
                 }, function(err) {
                     // handle error for cost loading 
                 });
             } else {
-                costService.loadAllCostsByPaymentMethod($scope.displayedCostsSelectedPaymentMethod).then(function (res) {
+                costService.loadAllCostsByPaymentMethod($scope.displayedCostsSelectedPaymentMethod, range.start, range.end).then(function (res) {
                     $scope.costs = res.data;
                 }, function(err) {
                     // handle error for cost loading 

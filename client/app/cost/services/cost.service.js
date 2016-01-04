@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('monefyApp')
-  .service('costService', function ($http, Auth) {
+  .service('costService', function ($http, Auth, moment) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.costs = [];
@@ -15,6 +15,12 @@ angular.module('monefyApp')
     };
 
     this.selectedPaymentMethod = null;
+
+
+    this.selectedMonth = {
+        'month': {'month': '', name: ''},
+        'moment' : moment()
+      };
 
     this.total = '';
 
@@ -41,17 +47,32 @@ angular.module('monefyApp')
       this.cost.created = created;
     };
 
-    this.loadAllCosts = function() {
+    this.setSelectedMonth = function(month) {
+      this.selectedMonth = month;
+    };
+
+    this.loadAllCosts = function(start, end) {
       return $http({
         method: 'GET',
-        url: '/api/costs/' + this.cost.user._id
+        url: '/api/costs',
+        params: {
+          userId: this.cost.user._id,
+          from: start,
+          to: end
+        }
       });
     };
 
-    this.loadAllCostsByPaymentMethod = function(selectedPaymentMethod) {
+    this.loadAllCostsByPaymentMethod = function(selectedPaymentMethod, start, end) {
 	    return $http({
 	    	method: 'GET',
-	    	url: '/api/costs/' + this.cost.user._id + '/' + selectedPaymentMethod._id
+	    	url: '/api/costs/paymentmethod',
+        params: {
+          userId: this.cost.user._id,
+          paymentMethodId : selectedPaymentMethod._id,
+          from: start,
+          to: end
+        }
 	    });
     };
 

@@ -6,8 +6,7 @@
     <div class="col-md-12 col-lg-12 col-sm-12">
       <button id="month" class="btn btn-success pull-right" ui-sref="costs.create">New Cost</button>
       
-      <!-- <span>Drop down list showing moths since user joined tha app</span> -->
-
+      
       <div class="btn-group" uib-dropdown>
         <button type="button" class="btn btn-primary" uib-dropdown-toggle>
           {{displayedCostsSelectedPaymentMethod.name}} <span class="caret"></span>
@@ -19,14 +18,15 @@
         </ul>
       </div>
 
-      
+      <calendar></calendar>
+
     </div>
   </div>
   </form>
   <div class="vspace10"></div>
 
   <ng-include src="'app/cost/views/list-costs-template.html'"></ng-include>
-  
+
 </div>
 
 <div class="loader" loader=""></div>
