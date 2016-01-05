@@ -5,6 +5,7 @@ angular.module('monefyApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.costs = [];
+    
     this.cost = {
       'ammount': '',
       'description': '',
@@ -16,13 +17,10 @@ angular.module('monefyApp')
 
     this.selectedPaymentMethod = null;
 
-
     this.selectedMonth = {
         'month': {'month': '', name: ''},
         'moment' : moment()
-      };
-
-    this.total = '';
+    };
 
     this.clear = function() {
       this.cost = {
@@ -77,7 +75,6 @@ angular.module('monefyApp')
     };
 
     this.createCost = function(cost) {
-      console.log(cost);
       return $http({
         method: 'POST',
         url: '/api/costs',

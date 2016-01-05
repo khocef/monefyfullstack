@@ -5,9 +5,6 @@ angular.module('monefyApp')
     return {
       templateUrl: 'app/calendar/calendar.html',
       restrict: 'EA',
-      scope: {
-      	currentMonth: "="
-      },
       controller: ['$scope', '$log', function($scope, $log) {
 
       	$scope.months = [];
@@ -15,7 +12,7 @@ angular.module('monefyApp')
       	$scope.nextMonth = null;
       	$scope.lastMonth = null;
 
-      	//$scope.currentMonth = costService.selectedMonth;
+      	$scope.currentMonth = costService.selectedMonth;
 
 		$scope.init = function() {
 			var monthsNames = moment.months();
@@ -39,7 +36,7 @@ angular.module('monefyApp')
       			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
       		};
 
-      		// costService.setSelectedMonth(scope.currentMonth);
+      		costService.setSelectedMonth($scope.currentMonth);
 		}
 
 		$scope.init();
@@ -54,7 +51,7 @@ angular.module('monefyApp')
       			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
       		};
 
-      		// costService.setSelectedMonth($scope.currentMonth);
+      		costService.setSelectedMonth($scope.currentMonth);
 		}
 
 		$scope.setToNextMonth = function(month) {
@@ -67,7 +64,7 @@ angular.module('monefyApp')
       			'moment' : moment($scope.currentMonth.moment).add(1, 'months')
       		};
 
-      		// costService.setSelectedMonth(scope.currentMonth);
+      		costService.setSelectedMonth($scope.currentMonth);
 		}
 
       }]

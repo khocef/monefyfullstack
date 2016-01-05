@@ -22,9 +22,13 @@ angular.module('monefyApp')
     $scope.paymentMethods = [];
     $scope.displayedCostsSelectedPaymentMethod = costService.displayedCostsSelectedPaymentMethod;
 
-    $scope.selectedDate = '';
-
-
+    // watch value chnging of cost services selectedMonth variable 
+    // and update the displayed costs by calling loadAllCost method
+    $scope.$watch(function() {
+        return costService.selectedMonth;
+    }, function(newValue) {
+        $scope.loadAllCost();
+    });
 
     $scope.loadAllCost = function() {
         var year = costService.selectedMonth.moment.get('year');

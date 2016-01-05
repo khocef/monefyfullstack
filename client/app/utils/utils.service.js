@@ -6,9 +6,12 @@ angular.module('monefyApp')
     
     this.getMonthDateRange = function(year, month) {
 
-      // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
+      // month in moment is 0 based, so 9 is actually october
       // array is 'year', 'month', 'day', etc
-      var startDate = moment([year, month - 1], "YYYY MM");
+      // 
+      // for unknown reason until now i dont know why moment conciders 
+      // january as month 1 even when passed 0
+      var startDate = moment([year, month + 1], "YYYY MM");
 
       // Clone the value before .endOf()
       var endDate = moment(startDate).endOf('month');
