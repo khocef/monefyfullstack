@@ -8,11 +8,25 @@ angular.module('monefyApp')
       controller: ['$scope', '$log', function($scope, $log) {
 
       	$scope.months = [];
-      	// scope.currentMonth = null;
+      	$scope.currentMonth = null;
       	$scope.nextMonth = null;
       	$scope.lastMonth = null;
 
       	$scope.currentMonth = costService.selectedMonth;
+		
+		function updateLastMonthValue() {
+			$scope.lastMonth = {
+      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).subtract(1, 'months').month()}),
+      			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
+      		};
+		};
+
+		function updateNextMonthValue() {
+			$scope.nextMonth = {
+      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).add(1, 'months').month()}),
+      			'moment' : moment($scope.currentMonth.moment).add(1, 'months')
+      		};
+		};
 
 		$scope.init = function() {
 			var monthsNames = moment.months();
@@ -26,30 +40,22 @@ angular.module('monefyApp')
 				'moment' : moment()
 			};
 
-      		$scope.nextMonth = {
-      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).add(1, 'months').month()}),
-      			'moment' : moment($scope.currentMonth.moment).add(1, 'months')
-      		};
+      		updateNextMonthValue();
 
-      		$scope.lastMonth = {
-      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).subtract(1, 'months').month()}),
-      			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
-      		};
+      		updateLastMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
 		}
 
 		$scope.init();
 
+
 		$scope.setToLastMonth = function(month) {
 			$scope.nextMonth = $scope.currentMonth;
 
 			$scope.currentMonth = month;
 
-			$scope.lastMonth = {
-      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).subtract(1, 'months').month()}),
-      			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
-      		};
+      		updateLastMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
 		}
@@ -58,11 +64,8 @@ angular.module('monefyApp')
 			$scope.lastMonth = $scope.currentMonth;
 
 			$scope.currentMonth = month;
-			
-			$scope.nextMonth = {
-      			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).add(1, 'months').month()}),
-      			'moment' : moment($scope.currentMonth.moment).add(1, 'months')
-      		};
+
+      		updateNextMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
 		}
