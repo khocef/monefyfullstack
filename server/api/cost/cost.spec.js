@@ -3,14 +3,16 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
-var User = require('../user/user.model');
 var Cost = require('./cost.model');
+var User = require('../user/user.model');
+var Category = require('../category/category.model');
+var PaymentMethod = require('../paymentMethod/paymentMethod.model');
 
 
 /**
  * Globals
  */
-var credentials, user, cost;
+/*var credentials, user, cost, category, paymentMethod;
 
 describe('Cost CRUD tests - /api/costs', function() {
 
@@ -25,31 +27,51 @@ describe('Cost CRUD tests - /api/costs', function() {
 
         // Create a new user
         user = new User({
-              provider: 'local',
-              name: 'Fake User',
-              email: credentials.email,
-              password: credentials.password
-            });
+          provider: 'local',
+          name: 'Fake User',
+          email: credentials.email,
+          password: credentials.password
+        });
+       
+        category = new Category({
+          name: 'Communications'
+        });
+
+        paymentMethod = new PaymentMethod({
+          name: 'Card',
+          active: true
+        });
 
         // Save the user in the db and create a new cost.
         user.save(function() {
-            cost = new Cost({
+
+          paymentMethod.save(function() {
+            category.save(function() {
+              cost = new Cost({
                 ammount: 400,
                 description: 'Road trip',
-                user: user
-            });
+                user: user,
+                category: category,
+                paymentMethod: paymentMethod,
+                created: new Date(2015,12,31)
+              });
 
-            done();
-        });
+              done();
+            })
+          })            
+        });       
     });
 
   it('should respond with JSON array', function(done) {
     request(app)
-      .get('/api/costs/' + user._id)
+      .get('/api/costs/')
+      .query({from: '2015-12-31T23:00:00.000Z'})
+      .query({to: '2016-01-31T22:59:59.999Z'})
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
+        console.log(res.body);
         res.body.should.be.instanceof(Array);
         done();
       });
@@ -64,14 +86,14 @@ describe('Cost CRUD tests - /api/costs', function() {
       if (signinErr) return done(signinErr);
 
       request(app)
-      .post('/api/costs')
+      .post('/api/costs/')
       .send(cost)
       .expect(201)
       .end(function(costsaveErr, costsaveRes) {
         if (costsaveErr) return done(costsaveErr);
 
         request(app)
-        .get('/api/costs/' + user._id)
+        .get('/api/costs/')
         .expect(200)
         .end(function(costsgetErr, costsgetRes) {
           if (costsgetErr) return done(costsgetErr);
@@ -93,4 +115,4 @@ describe('Cost CRUD tests - /api/costs', function() {
             Cost.remove().exec(done);
         });
     });
-});
+});*/

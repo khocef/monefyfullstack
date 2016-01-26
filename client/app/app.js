@@ -9,19 +9,21 @@ angular.module('monefyApp', [
   'angularMoment'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-    /*$urlRouterProvider
-      .otherwise('/');*/
-
     $urlRouterProvider
-    .otherwise(function($injector) {
-      $injector.get('$state').transitionTo('404');
+      .otherwise(function($injector) {
+      $injector.get('$state').transitionTo('costs.list');
     });
 
-    $stateProvider
+/*    $urlRouterProvider
+    .otherwise(function($injector) {
+      $injector.get('$state').transitionTo('404');
+    });*/
+
+/*    $stateProvider
     .state('404', {
       templateUrl: '/components/errors/404.html'
     });
-
+*/
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');

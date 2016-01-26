@@ -1,14 +1,11 @@
-pouvoir creer des moyens de paiment
-
-pouvoir choisi un moyen de paiement dans une depense
+Rendre la categorie obligatoire lors de la creation d'une depense 
 
 pouvir creer ses propores moyens de paiment
 
-pouvoir classer ses depenses selon le moyen de paiement
-
-
-
-bower install ionicons
-
-
 mongod.exe --config ../mongod.cfg
+
+
+registry=http://registry.npmjs.org/
+
+
+registry=https://aev.ext.prod.siv.sncf.fr:54542/registry/
