@@ -90,9 +90,11 @@ angular.module('monefyApp')
     	$log.info(cost);
     });
 
-    $scope.loadAllPaymentMethods = function() {
+    $scope.createCostPaymentMethods = [];
+
+    $scope.createCostLoadAllPaymentMethods = function() {
         paymentMethodService.loadAllPaymentMethods().then(function (res) {
-            $scope.paymentMethods = res.data;
+            $scope.createCostPaymentMethods = res.data;
             if(costService.cost.paymentMethod === null || costService.cost.paymentMethod === undefined) {
                 $scope.setPaymementMethod(res.data[0]);
             }
