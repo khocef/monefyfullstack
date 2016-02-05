@@ -26,7 +26,7 @@ angular.module('monefyApp')
     // and update the displayed costs by calling loadAllCost method
     $scope.$watch(function() {
         return costService.selectedMonth;
-    }, function(newValue) {
+    }, function() {
         $scope.loadAllCost();
     });
 
@@ -65,7 +65,7 @@ angular.module('monefyApp')
             $scope.displayedCostsSelectedPaymentMethod = method;
             $scope.loadAllCost();
         } else {
-            $log.info('Payment Method "'+ method.name + '" unchanged.')
+            $log.info('Payment Method "'+ method.name + '" unchanged.');
         }
     };
 

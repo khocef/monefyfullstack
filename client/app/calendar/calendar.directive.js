@@ -5,7 +5,7 @@ angular.module('monefyApp')
     return {
       templateUrl: 'app/calendar/calendar.html',
       restrict: 'EA',
-      controller: ['$scope', '$log', function($scope, $log) {
+      controller: ['$scope', '$log', function($scope) {
 
       	$scope.months = [];
       	$scope.currentMonth = null;
@@ -19,21 +19,21 @@ angular.module('monefyApp')
       			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).subtract(1, 'months').month()}),
       			'moment' : moment($scope.currentMonth.moment).subtract(1, 'months')
       		};
-		};
+		}
 
 		function updateNextMonthValue() {
 			$scope.nextMonth = {
       			'month': _.findWhere($scope.months, {'month': moment($scope.currentMonth.moment).add(1, 'months').month()}),
       			'moment' : moment($scope.currentMonth.moment).add(1, 'months')
       		};
-		};
+		}
 
 		$scope.init = function() {
 			var monthsNames = moment.months();
 			
 			for (var i = 0; i < monthsNames.length; i++) {
-				$scope.months.push({'month': i, name: monthsNames[i]})
-			};
+				$scope.months.push({'month': i, name: monthsNames[i]});
+			}
 
 			$scope.currentMonth = {
 				'month': _.findWhere($scope.months, {'month': moment().month()}),
@@ -45,7 +45,7 @@ angular.module('monefyApp')
       		updateLastMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
-		}
+		};
 
 		$scope.init();
 
@@ -58,7 +58,7 @@ angular.module('monefyApp')
       		updateLastMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
-		}
+		};
 
 		$scope.setToNextMonth = function(month) {
 			$scope.lastMonth = $scope.currentMonth;
@@ -68,7 +68,7 @@ angular.module('monefyApp')
       		updateNextMonthValue();
 
       		costService.setSelectedMonth($scope.currentMonth);
-		}
+		};
 
       }]
     };

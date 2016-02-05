@@ -10,6 +10,10 @@ angular.module('monefyApp')
       'title': 'Categories',
       'link': '/categories',
       'visible': Auth.isLoggedIn()
+    },{
+      'title': '<i class="fa fa-money"></i> payment methods',
+      'link': '/paymentMethods',
+      'visible': Auth.isLoggedIn()
     }];
 
     $scope.isCollapsed = true;

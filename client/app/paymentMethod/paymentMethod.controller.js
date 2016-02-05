@@ -20,4 +20,6 @@ angular.module('monefyApp')
         costService.setPaymentMethod(method);
     	};
 
+      $scope.msg = "This is the paymentMethod view.";
+
   }]);
